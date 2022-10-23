@@ -7,7 +7,7 @@ RUN apt-get update && \
 
 #install the requirements
 COPY requirements.txt /tmp/requirements.txt
-RUN pip3 install --requirement /tmp/requirements.txt
+RUN python3 -m pip install --requirement /tmp/requirements.txt
 
 #copy data to container... kinda link not copy
 COPY input_98660.npy ./input_98660.npy
