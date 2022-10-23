@@ -1,5 +1,5 @@
 #grab the nvidia cuda image to enable using gpu architecture for container
-FROM nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
+FROM nvidia/cuda:11.1.1-cudnn8-runtime-ubuntu18.04
 
 #update and python installation
 RUN apt-get -qq update && \
@@ -18,4 +18,4 @@ COPY ./scripts/Utils.py ./scripts/Utils.py
 COPY train.py ./train.py
 
 #run training script
-#ENTRYPOINT ['python3', 'train.py']
+CMD ["python3", "train.py"]
