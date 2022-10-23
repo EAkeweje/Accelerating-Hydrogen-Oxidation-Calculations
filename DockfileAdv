@@ -1,0 +1,48 @@
+FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu20.04
+
+ARG username="e.akeweje"
+ARG MY_USER_ID
+ARG MY_GROUP_ID
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -qq update && \
+    apt-get install -y wget unzip git cmake libglu1-mesa-dev libgl1-mesa-dev libosmesa6-dev xvfb sudo freeglut3-dev ffmpeg curl patchelf libglfw3 libglfw3-dev zlib1g zlib1g-dev swig && \
+    apt-get clean
+
+ADD deeplearning.yaml /tmp/deeplearning.yaml
+
+RUN groupadd --gid $MY_GROUP_ID $username && \
+    adduser --disabled-password --gecos '' --uid $MY_USER_ID --gid $MY_GROUP_ID --shell /bin/bash $username && \
+    sudo adduser $username sudo && \
+    echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    mkdir /notebooks && \
+    chown -R $username /notebooks && \
+    chown $username /tmp/deeplearning.yaml
+
+RUN su $username -c \
+    "wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh \
+        -O /tmp/anaconda3.sh" && \
+    mkdir -p /opt/conda && \
+    chown -R $username /opt/conda && \
+    su $username -c "/bin/bash /tmp/anaconda3.sh -b -p /opt/conda -u" && \
+    rm /tmp/anaconda3.sh && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    su $username -c "echo '. /opt/conda/etc/profile.d/conda.sh' >> ~/.bashrc" && \
+    su $username -c "echo 'conda activate base' >> ~/.bashrc"
+USER $username
+SHELL ["/bin/bash", "-i", "-c"]
+LABEL maintainer "Emmanuel Akeweje <emmanuel.akeweje@skoltech.ru>"
+
+RUN conda update anaconda && \
+    conda install -y jupyter && \
+    conda env create -f /tmp/deeplearning.yaml && \
+    conda activate deeplearning && \
+    python -m ipykernel install --user --name python3 --display-name "Python 3" && \
+    sudo rm /tmp/deeplearning*.yaml
+
+EXPOSE 8888
+VOLUME /notebooks
+WORKDIR /notebooks
+ENV PATH /opt/conda/bin:$PATH
+
+CMD ["/bin/bash"]

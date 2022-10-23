@@ -1,0 +1,35 @@
+name: deeplearning
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.8
+  - graphviz
+  - python-graphviz
+  - ipykernel
+  - numpy
+  - pip
+  - scipy
+  - tqdm
+  - pyopengl-accelerate
+  - opencv
+  - deepxde
+  - jupyterlab_widgets
+  - ipywidgets
+  - pip:
+    - torch
+    - torchvision
+    - torchaudio
+    - sklearn
+    - matplotlib
+    - seaborn
+    - scikit-image
+    - imageio
+    - pyglet
+    - psutil
+    - requests
+    - editdistance
+    - git+https://github.com/rtqichen/torchdiffeq
+prefix: /opt/conda/envs/deeplearning
