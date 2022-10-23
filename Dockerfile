@@ -1,5 +1,5 @@
 #grab the nvidia cuda image to enable using gpu architecture for container
-FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
 
 #update and python installation
 RUN apt-get -qq update && \
