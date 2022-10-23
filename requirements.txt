@@ -2,5 +2,3 @@ numpy
 matplotlib
 sklearn
 torch
-torchvision
-torchsummary
