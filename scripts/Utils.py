@@ -11,8 +11,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
-from torchvision import transforms
-from torchsummary import summary
+# from torchvision import transforms
+# from torchsummary import summary
 
 ##########################Dataset object#########################
 class OxidationDataset(Dataset):
