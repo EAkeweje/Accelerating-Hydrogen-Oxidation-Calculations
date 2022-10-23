@@ -2,7 +2,7 @@
 FROM nvidia/cuda:11.1.1-cudnn8-runtime-ubuntu18.04
 
 #update and python installation
-RUN apt-get -qq update && \
+RUN apt-get update && \
     apt-get install -y python3 python3-pip sudo
 
 #install the requirements
