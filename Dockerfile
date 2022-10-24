@@ -10,7 +10,7 @@ COPY requirements.txt /tmp/requirements.txt
 RUN python3 -m pip install --requirement /tmp/requirements.txt
 
 #copy data to container... kinda link not copy
-COPY config.json ./config.json
+#COPY config.json ./config.json
 #COPY Out_files_npy ./Out_files_npy
 
 #copy python scripts to container
