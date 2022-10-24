@@ -164,7 +164,7 @@ with open(args.config, "r") as f:
 
 def train(config = config):
     #hyperparameters
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
 
     #data
     #prepare dataloaders
