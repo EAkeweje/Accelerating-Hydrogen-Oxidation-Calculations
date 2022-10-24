@@ -14,8 +14,8 @@ RUN python3 -m pip install --requirement /tmp/requirements.txt
 #COPY Out_files_npy ./Out_files_npy
 
 #copy python scripts to container
-COPY ./scripts/Utils.py ./scripts/Utils.py
-COPY train.py ./train.py
+#COPY ./scripts/Utils.py ./scripts/Utils.py
+#COPY train.py ./train.py
 
 #run training script
 #CMD ["python3", "train.py"]
