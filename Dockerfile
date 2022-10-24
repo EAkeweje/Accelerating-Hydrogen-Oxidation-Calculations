@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get install -y python3 python3-pip sudo
 
 #install the requirements
-COPY requirements.txt /tmp/requirements.txt
+COPY requirements.txt /tmp/
 RUN python3 -m pip install --requirement /tmp/requirements.txt
 
 #copy data to container... kinda link not copy
