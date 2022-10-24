@@ -210,5 +210,5 @@ def train(config = config):
 if __name__ == '__main__':
     print('configuration:', config)
     train()
-    print('Train losses': train_losses, 
-        'Valid losses': val_losses)
+    print('Train losses:' train_losses, 
+        'Valid losses:' val_losses)
