@@ -1,6 +1,5 @@
 #grab the nvidia cuda image to enable using gpu architecture for container
-#FROM nvidia/cuda:10.2-cudnn8-runtime-ubuntu18.04
-docker pull nvidia/cuda:10.2-cudnn8-runtime-ubuntu18.04
+FROM nvidia/cuda:10.2-cudnn8-runtime-ubuntu18.04
 
 #update and python installation
 RUN apt-get update && \
