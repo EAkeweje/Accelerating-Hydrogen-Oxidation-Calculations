@@ -21,6 +21,8 @@ import argparse
 sys.path.append(os.getcwd()+'/scripts')
 from Utils import *
 
+torch.cuda.empty_cache()
+
 ###Networks
 #single step
 class RNN_Model(nn.Module):
