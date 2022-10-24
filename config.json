@@ -1,7 +1,7 @@
 {
     "batch_size" : 128,
     "dropout" : 0.1,
-    "timesteps" : "all",
+    "timesteps" : [1, 5, 15, 100, 200],
     "nsample" : 150,
     "split" : [0.7, 0.2, 0.1],
     "mean_std_path" : "./Model1.json",
@@ -15,7 +15,7 @@
     "hidden_size" : 100,
     "num_layers" : 2,
     "output_size" : 7,
-    "ntimesteps" : 200,
+    "ntimesteps" : 5,
     "epochs" : 10,
     "optimizer" : "Adam",
     "SGD_momentum" : 0.95,
