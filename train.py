@@ -15,8 +15,9 @@ from torch.utils.data.sampler import SubsetRandomSampler
 
 import os
 import sys
-#get utils
+import argparse
 
+#get utils
 sys.path.append(os.getcwd()+'/scripts')
 from Utils import *
 
@@ -144,6 +145,15 @@ class RNN_Model_Multiple_v2(nn.Module):
         return torch.concat(outputs, 1)
 
 
+# Initialize parser
+parser = argparse.ArgumentParser()
+
+# Adding optional argument
+parser.add_argument("-d", "--dir", help = "directory to source data")
+
+# Read arguments from command line
+args = parser.parse_args()
+
 # Config
 config = dict(
     ## data
@@ -157,8 +167,8 @@ config = dict(
     in_conc = True,
     in_pres = False,
     out_h2_o2 = False,
-    inputs_path = "input_98660.npy",
-    outputs_dir = "./Out_files_npy",
+    inputs_path = os.path.join(args.dir,"input_98660.npy"),
+    outputs_dir = os.path.join(args.dir,"./Out_files_npy"),
     ## model
     input_size = 9,
     hidden_size = 100,
