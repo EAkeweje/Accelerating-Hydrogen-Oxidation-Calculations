@@ -204,9 +204,11 @@ def train(config = config):
     model = model.to(device)
     criterion  = nn.MSELoss()
     e, val_loss, train_losses, val_losses = training(model, train_loader, val_loader, config, criterion, mean_std, device)
-    loss_plot(train_losses, val_losses)
+    # loss_plot(train_losses, val_losses)
     print('least val loss:', val_loss)
 
 if __name__ == '__main__':
-    print(config)
+    print('configuration:', config)
     train()
+    print('Train losses': train_losses, 
+        'Valid losses': val_losses)
