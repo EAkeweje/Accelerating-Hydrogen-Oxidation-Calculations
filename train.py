@@ -206,8 +206,9 @@ def train(config = config):
     e, val_loss, train_losses, val_losses = training(model, train_loader, val_loader, config, criterion, mean_std, device)
     # loss_plot(train_losses, val_losses)
     print('least val loss:', val_loss)
+    return train_losses, val_losses
 
 if __name__ == '__main__':
     print('configuration:', config)
-    train()
+    train_losses, val_losses = train()
     print('Train losses:', train_losses, 'Valid losses:', val_losses)
