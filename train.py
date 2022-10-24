@@ -149,46 +149,16 @@ class RNN_Model_Multiple_v2(nn.Module):
 parser = argparse.ArgumentParser()
 
 # Adding optional argument
-parser.add_argument("-d", "--dir", help = "directory to source data")
+parser.add_argument("-i", "--input", help = "directory to source data")
+parser.add_argument("-t", "--target", help = "directory to source data")
+parser.add_argument("-c", "--config", help = "directory to source data")
 
 # Read arguments from command line
 args = parser.parse_args()
 
-# Config
-config = dict(
-    ## data
-    batch_size = 128,
-    dropout = 0.1,
-    timesteps = [1, 5, 15, 100, 200],
-    nsample = 150,
-    split = [0.7, 0.2, 0.1],
-    mean_std_path = "./Model1.json",#"./MeanStd/Model1.json",
-    in_h2_o2 = True,
-    in_conc = True,
-    in_pres = False,
-    out_h2_o2 = False,
-    inputs_path = os.path.join(args.dir,"input_98660.npy"),
-    outputs_dir = os.path.join(args.dir,"./Out_files_npy"),
-    ## model
-    input_size = 9,
-    hidden_size = 100,
-    num_layers = 2,
-    output_size = 7,
-    ntimesteps = 5,
-    ## training
-    epochs = 100,
-    optimizer = 'Adam',
-    SGD_momentum = 0.95,
-    beta1 = 0.95, 
-    beta2 = 0.9,
-    lr = 0.0005,
-    dict_path = "./Model1.pth",#./Models/Model1.pth",
-    scheduling = False,
-    mb_coeff = 0,
-    model = 'v2',
-    weight_decay = 0,
-    return_1d_input = False
-    )
+# get config file
+with open(args.config, "r") as f:
+        config = json.load(f)
 
 def train(config = config):
     #hyperparameters

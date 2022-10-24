@@ -1,5 +1,6 @@
 #grab the nvidia cuda image to enable using gpu architecture for container
-FROM nvidia/cuda:10.2-cudnn8-runtime-ubuntu18.04
+#FROM nvidia/cuda:10.2-cudnn8-runtime-ubuntu18.04
+docker pull nvidia/cuda:10.2-cudnn8-runtime-ubuntu18.04
 
 #update and python installation
 RUN apt-get update && \
@@ -10,12 +11,12 @@ COPY requirements.txt /tmp/requirements.txt
 RUN python3 -m pip install --requirement /tmp/requirements.txt
 
 #copy data to container... kinda link not copy
-COPY input_98660.npy ./input_98660.npy
-COPY Out_files_npy ./Out_files_npy
+#COPY input_98660.npy ./input_98660.npy
+#COPY Out_files_npy ./Out_files_npy
 
 #copy python scripts to container
 COPY ./scripts/Utils.py ./scripts/Utils.py
 COPY train.py ./train.py
 
 #run training script
-CMD ["python3", "train.py"]
+#CMD ["python3", "train.py"]
