@@ -497,9 +497,9 @@ def make_dataloaders(config):
   valid_sampler = SubsetRandomSampler(val_indices)
   test_sampler = SubsetRandomSampler(test_indices)
 
-  train_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=train_sampler, num_workers = 8)
-  validation_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=valid_sampler, num_workers = 8)
-  test_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=test_sampler, num_workers = 8)
+  train_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=train_sampler, num_workers = 2)
+  validation_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=valid_sampler, num_workers = 2)
+  test_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=test_sampler, num_workers = 2)
   
   return train_loader, validation_loader, test_loader
 
