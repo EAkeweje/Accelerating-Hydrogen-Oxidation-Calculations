@@ -15,7 +15,7 @@
     "hidden_size" : 100,
     "num_layers" : 2,
     "output_size" : 7,
-    "ntimesteps" : 5,
+    "ntimesteps" : 200,
     "epochs" : 10,
     "optimizer" : "Adam",
     "SGD_momentum" : 0.95,
