@@ -11,6 +11,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
+from tqdm import tqdm
 # from torchvision import transforms
 # from torchsummary import summary
 
@@ -273,7 +274,7 @@ def train_step(model, optimizer, criterion, dataloader, mean_std, device, mb_coe
   '''
   train_loss_ = 0.0
   model.train()
-  for input, target in dataloader:
+  for input, target in tqdm(dataloader, ascii = True, desc = 'training step'):
     # Transfer Data to GPU if available
     input, target = input.to(device), target.to(device)
     # Standardize
@@ -306,7 +307,7 @@ def valid_step(model, criterion, dataloader, mean_std, device, mb_coeff = 0):
   '''
   valid_loss_ = 0.0
   model.eval()     # Optional when not using Model Specific layer
-  for input, target in dataloader:
+  for input, target in tqdm(dataloader, ascii = True, desc = 'validation step'):
     # Transfer Data to GPU if available
     input, target = input.to(device), target.to(device)
     #standardize
@@ -497,9 +498,9 @@ def make_dataloaders(config):
   valid_sampler = SubsetRandomSampler(val_indices)
   test_sampler = SubsetRandomSampler(test_indices)
 
-  train_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=train_sampler, num_workers = 2)
-  validation_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=valid_sampler, num_workers = 2)
-  test_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=test_sampler, num_workers = 2)
+  train_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=train_sampler, num_workers = 8)
+  validation_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=valid_sampler, num_workers = 8)
+  test_loader = DataLoader(dataset, batch_size = config['batch_size'], sampler=test_sampler, num_workers = 8)
   
   return train_loader, validation_loader, test_loader
 

@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
+from tqdm import tqdm
 # from torchvision import transforms
 # from torchsummary import summary
 
@@ -151,9 +152,10 @@ class RNN_Model_Multiple_v2(nn.Module):
 parser = argparse.ArgumentParser()
 
 # Adding optional argument
-parser.add_argument("-i", "--input", help = "directory to source data")
-parser.add_argument("-t", "--target", help = "directory to source data")
-parser.add_argument("-c", "--config", help = "directory to source data")
+parser.add_argument("-i", "--input", help = "path to source input")
+parser.add_argument("-t", "--target", help = "directory to source target")
+parser.add_argument("-c", "--config", help = "path to config file")
+parser.add_argument("-l", "--losses", help = "path to train and val losses")
 
 # Read arguments from command line
 args = parser.parse_args()
@@ -165,6 +167,7 @@ with open(args.config, "r") as f:
 def train(config = config):
     #hyperparameters
     device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cpu")
 
     #data
     #prepare dataloaders
@@ -182,6 +185,10 @@ def train(config = config):
     elif config['model'] == 'v2':
         model = RNN_Model_Multiple_v2(config)
 
+    #load model parameters
+    if config['dict_ckpt']:
+        model.load_state_dict(torch.load(config['dict_ckpt'], map_location=torch.device('cpu')))
+
     #training
     model = model.to(device)
     criterion  = nn.MSELoss()
@@ -192,4 +199,6 @@ def train(config = config):
 
 if __name__ == '__main__':
     train_losses, val_losses = train()
-    print('Train losses:', train_losses, 'Valid losses:', val_losses)
+    loss = dict(Train_losses = train_losses, Valid_losses = val_losses)
+    with open(args.losses, "w") as f:
+        config = json.dump(loss, f)
